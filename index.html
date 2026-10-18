@@ -1,61 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My First Website</title>
+<title>The Softknode | Handmade With Love</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #0f172a;
-            color: white;
-            text-align: center;
-        }
-
-        header {
-            padding: 20px;
-            background: #1e293b;
-        }
-
-        .container {
-            margin: 80px auto;
-            padding: 30px;
-            max-width: 500px;
-        }
-
-        h1 {
-            color: #38bdf8;
-        }
-
-        button {
-            background: #22c55e;
-            border: none;
-            padding: 14px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-    </style>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#faf7f2;color:#302a25}
+header{background:#fff;padding:20px 7%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;box-shadow:0 2px 10px #0000000d;z-index:5}
+.logo{font-size:23px;font-weight:bold;letter-spacing:2px;color:#705443}
+nav a{color:#302a25;text-decoration:none;margin-left:20px;font-size:14px}
+.hero{padding:75px 8%;background:#eee3d5;text-align:center}
+.hero p{color:#735a49;letter-spacing:3px;font-size:12px;margin-bottom:18px}
+.hero h1{font-size:clamp(35px,6vw,62px);margin-bottom:18px}
+.hero h2{font-size:18px;font-weight:normal;margin-bottom:25px}
+.btn{display:inline-block;background:#705443;color:white;border:0;padding:13px 23px;text-decoration:none;cursor:pointer;border-radius:3px}
+section{padding:55px 7%}
+.heading{text-align:center;margin-bottom:30px}
+.heading h2{font-size:30px;margin-bottom:10px}
+.heading p{color:#766b61}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:22px}
+.card{background:white;border:1px solid #eee3d5;padding-bottom:20px;text-align:center;border-radius:5px;overflow:hidden}
+.photo{height:190px;background:#e9ded1;display:flex;align-items:center;justify-content:center;font-size:65px}
+.card h3{margin:17px 8px 8px}
+.card p{color:#766b61;font-size:14px;margin:8px}
+.price{font-weight:bold;color:#705443!important;font-size:18px!important}
+.card button{margin-top:8px}
+.about{background:#eee3d5;text-align:center;line-height:1.8}
+#cart{background:white;border:1px solid #e7ddd2;padding:20px;border-radius:5px;max-width:650px;margin:auto}
+.cart-row{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid #eee}
+input,textarea{width:100%;padding:12px;margin:7px 0 13px;border:1px solid #d8cabe;border-radius:4px;font:inherit}
+label{font-size:14px}
+footer{text-align:center;padding:28px;background:#302a25;color:white;font-size:13px}
+.small{font-size:12px;color:#766b61;line-height:1.6;margin-top:12px}
+@media(max-width:600px){header{padding:16px 4%;flex-wrap:wrap;gap:12px}.logo{font-size:18px}nav a{margin-left:10px}.hero{padding:55px 5%}section{padding:40px 5%}}
+</style>
 </head>
 
 <body>
+<header>
+  <div class="logo">THE SOFTKNODE</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+    <a href="#cart-section">Cart 🛒 <span id="cart-count">0</span></a>
+  </nav>
+</header>
 
-    <header>
-        <h2>My Website</h2>
-    </header>
+<main>
+<section class="hero" id="home">
+  <p>HANDMADE • THOUGHTFUL • UNIQUE</p>
+  <h1>Made With Love,<br>Made For You.</h1>
+  <h2>Discover handmade creations crafted with care.</h2>
+  <a class="btn" href="#shop">Explore Collection</a>
+</section>
 
-    <div class="container">
-        <h1>Welcome to My Website! 🚀</h1>
+<section id="shop">
+  <div class="heading">
+    <h2>Our Collection</h2>
+    <p>Every piece has a story. Find something special.</p>
+  </div>
 
-        <p>Ye meri pehli website hai.</p>
+  <div class="products" id="products"></div>
+</section>
 
-        <button onclick="alert('Website successfully running!')">
-            Click Me
-        </button>
-    </div>
+<section class="about" id="about">
+  <h2>Our Story</h2>
+  <p>At The Softknode, we believe handmade products carry a special touch.</p>
+  <p>Thoughtfully made, carefully packed, and created just for you.</p>
+</section>
 
+<section id="cart-section">
+  <div class="heading">
+    <h2>Your Shopping Cart 🛒</h2>
+    <p>Review your selected items below.</p>
+  </div>
+
+  <div id="cart">
+    <div id="cart-items">Your cart is empty.</div>
+    <h3 style="margin:18px 0">Total: ₹<span id="total">0</span></h3>
+
+    <h3 style="margin:20px 0 10px">Delivery Details</h3>
+    <form id="order-form">
+      <label>Full Name</label>
+      <input id="customer-name" required placeholder="Your name">
+
+      <label>Mobile Number</label>
+      <input id="customer-phone" type="tel" required pattern="[0-9]{10}" maxlength="10" placeholder="10-digit mobile number">
+
+      <label>Delivery Address</label>
+      <textarea id="customer-address" required rows="3" placeholder="Full address with PIN code"></textarea>
+
+      <button class="btn" type="submit">Place Order on WhatsApp</button>
+      <p class="small">Your order details will be prepared in WhatsApp. Payment is not collected by this demo website.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p>© 2026 THE SOFTKNODE. Handmade with love.</p>
+</footer>
+
+<script>
+const products = [
+  {id:1,name:"Handmade Creation 1",price:299,icon:"🎁",description:"A thoughtful handmade gift."},
+  {id:2,name:"Handmade Creation 2",price:399,icon:"🕯️",description:"Made with care and creativity."},
+  {id:3,name:"Handmade Creation 3",price:249,icon:"🧶",description:"A unique piece for your collection."},
+  {id:4,name:"Handmade Creation 4",price:499,icon:"🌷",description:"Something special, made by hand."}
+];
+
+const cart = {};
+
+function renderProducts(){
+  document.getElementById("products").innerHTML=products.map(p=>`
+    <article class="card">
+      <div class="photo">${p.icon}</div>
+      <h3>${p.name}</h3>
+      <p>${p.description}</p>
+      <p class="price">₹${p.price}</p>
+      <button class="btn" onclick="addToCart(${p.id})">Add to Cart</button>
+    </article>
+  `).join("");
+}
+
+function addToCart(id){
+  cart[id]=(cart[id]||0)+1;
+  renderCart();
+}
+
+function changeQty(id,amount){
+  cart[id]=(cart[id]||0)+amount;
+  if(cart[id]<=0)delete cart[id];
+  renderCart();
+}
+
+function renderCart(){
+  const ids=Object.keys(cart);
+  let count=0,total=0;
+  ids.forEach(id=>{count+=cart[id];total+=products.find(p=>p.id==id).price*cart[id]});
+  document.getElementById("cart-count").textContent=count;
+  document.getElementById("total").textContent=total;
+  document.getElementById("cart-items").innerHTML=ids.length?ids.map(id=>{
+    const p=products.find(x=>x.id==id);
+    return `<div class="cart-row"><span>${p.name}<br>₹${p.price} × ${cart[id]}</span>
+    <span><button type="button" onclick="changeQty(${id},-1)">−</button>
+    <button type="button" onclick="changeQty(${id},1)">+</button></span></div>`;
+  }).join(""):"Your cart is empty.";
+}
+
+document.getElementById("order-form").addEventListener("submit",function(e){
+  e.preventDefault();
+  if(!Object.keys(cart).length){alert("Please add a product to your cart first.");return;}
+  const name=document.getElementById("customer-name").value.trim();
+  const phone=document.getElementById("customer-phone").value.trim();
+  const address=document.getElementById("customer-address").value.trim();
+  let message="Hello The Softknode! I want to place an order.%0A";
+  message+="Name: "+encodeURIComponent(name)+"%0A";
+  message+="Phone: "+encodeURIComponent(phone)+"%0A";
+  message+="Address: "+encodeURIComponent(address)+"%0A%0AProducts:%0A";
+  let total=0;
+  Object.keys(cart).forEach(id=>{
+    const p=products.find(x=>x.id==id);
+    message+=encodeURIComponent(p.name+" × "+cart[id]+" = ₹"+(p.price*cart[id]))+"%0A";
+    total+=p.price*cart[id];
+  });
+  message+="Total: ₹"+total;
+  const shopNumber="REPLACE_WITH_YOUR_WHATSAPP_NUMBER";
+  if(!/^[0-9]{10,15}$/.test(shopNumber)){
+    alert("Website demo ready hai! Orders receive karne ke liye code mein apna WhatsApp number country code ke saath add karna hoga.");
+    return;
+  }
+  window.open("https://wa.me/"+shopNumber+"?text="+message,"_blank");
+});
+
+renderProducts();
+renderCart();
+</script>
 </body>
 </html>
